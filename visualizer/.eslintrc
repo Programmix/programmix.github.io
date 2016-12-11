@@ -1,0 +1,17 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "emcaVersion": 8,
+    "emcaFeatures": {
+      "impliedStrict": true
+    }
+  },
+  "globals": {
+    "Two": true,
+    "noise": true,
+    "Particle": true
+  }
+}
