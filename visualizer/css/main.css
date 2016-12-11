@@ -1,0 +1,128 @@
+
+body {
+  color: #FFFFFF;
+  font-family: 'Montserrat';
+}
+
+#debug, #controls-container, #toggle-controls {
+  position: absolute;
+  display: inline-block;
+  z-index: 1;
+}
+
+#toggle-controls {
+  right: calc(25% + 32px);
+  width: 32px;
+  height: 32px;
+
+  -webkit-transform: rotate(180deg);
+     -moz-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+       -o-transform: rotate(180deg);
+          transform: rotate(180deg);
+
+  -webkit-transition: transform 400ms;
+     -moz-transition: transform 400ms;
+      -ms-transition: transform 400ms;
+       -o-transition: transform 400ms;
+          transition: transform 400ms;
+}
+
+#toggle-controls.minimized {
+  -webkit-transform: rotate(0deg);
+     -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+       -o-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+#toggle-controls:hover {
+  cursor: pointer;
+}
+
+#controls-container {
+  width: 25%;
+  right: 0;
+  padding: 1em;
+  top: 0;
+
+  -webkit-transition: top 400ms;
+     -moz-transition: top 400ms;
+      -ms-transition: top 400ms;
+       -o-transition: top 400ms;
+          transition: top 400ms;
+}
+
+#controls-container p {
+  margin: 0;
+  margin-bottom: 0.5em;
+}
+
+#input-error {
+  color: #f4425c;
+}
+
+#input-error.hidden {
+  opacity: 0;
+}
+
+#controls-container.minimized {
+  top: -7rem;
+}
+
+#song-input input {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#song-input input[type=text] {
+  width: 75%;
+  padding: 0.5em;
+}
+
+#song-input input[type=submit] {
+  background: none;
+  background-image: url("../icons/play.png");
+  border: none;
+  font-size: 1em;
+  background-size: 32px;
+  width: 32px;
+  height: 32px;
+  margin-left: 1em;
+}
+
+#song-input input[type=submit]:hover {
+  cursor: pointer;
+}
+
+#song-input input[type=submit]:focus {
+  outline: none;
+}
+
+#controls-display {
+  -webkit-transition: opacity 400ms;
+     -moz-transition: opacity 400ms;
+      -ms-transition: opacity 400ms;
+       -o-transition: opacity 400ms;
+          transition: opacity 400ms;
+}
+
+#controls-display.hidden {
+  opacity: 0;
+}
+
+#controls-display img {
+  width: 64px;
+  height: 64px;
+  float: left;
+  margin-right: 0.75em;
+}
+
+#song-title {
+  margin-bottom: 0;
+  min-height: 2em;
+}
+
+#song-duration {
+  float: right;
+}
