@@ -22,6 +22,8 @@ class Main {
     this.audioSrc.connect(this.analyser);
     this.analyser.connect(this.audioCtx.destination);
 
+    this.controls = new Controls(audio);
+
     width = this.canvas.width;
     height = this.canvas.height;
 
@@ -50,6 +52,9 @@ class Main {
     this.vol = 0;
     this.volRange = 0;
     this.volDiff = 0;
+
+    this.volCache = new Cache(60 * 2);
+    this.volDiffCache = new Cache(60);
   }
 
   render(frameCount) {
@@ -67,12 +72,13 @@ class Main {
     const freqAvg = totalVol / frequencyData.length;
 
     this.vol = totalVol * 0.0001;
-    this.volRange += ((this.vol - 1) - this.volRange) * 0.01;
-    this.volDiff = this.vol - (this.volRange - 1.5);
+    this.volCache.push(this.vol - 0.5);
+    this.volRange = this.volCache.reduce((p, c) => p + c, 0) / this.volCache.length;
+    this.volDiff = this.vol - this.volRange;
+    this.volDiffCache.push(this.volDiff);
+    this.volDiffRange = this.volDiffCache.reduce((p, c) => p + c, 0) / this.volDiffCache.length;
 
-    const vol = this.vol;
-    const volRange = this.volRange;
-    const volDiff = this.volDiff;
+    const { vol, volRange, volDiff, volDiffRange } = this;
 
     for (let x = 0; x < this.cols; x++) {
       for (let y = 0; y < this.rows; y++) {
@@ -90,9 +96,11 @@ class Main {
       }
     }
 
+    const pfactor = (volDiff - volDiffRange) * 3 + 1;
+
     for (const particle of this.particles) {
-      particle.size = (vol * 0.5) + ((volDiff * 1.25) ^ 2) * 1.5;
-      particle.speedOffset = (vol * 0.2) + (volDiff * 0.5) ^ 2;
+      particle.size = 2 + (vol * 0.75) + ((Math.abs(pfactor) * 2.5) ^ 2) * 1.5;
+      particle.speedOffset = (vol * 0.35) + (pfactor * 1.25) ^ 2;
 
       particle.update();
       particle.render();
@@ -104,7 +112,8 @@ class Main {
     frq: ${freqAvg.toFixed(2)}<br>
     vol: ${vol.toFixed(2)}<br>
     rng: ${volRange.toFixed(2)}<br>
-    dif: ${volDiff.toFixed(2)}
+    dif: ${volDiff.toFixed(2)}<br>
+    pfc: ${pfactor.toFixed(2)}
     `
   }
 

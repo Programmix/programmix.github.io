@@ -12,7 +12,7 @@ class Particle {
 
     this.friction = 0.5;
     this.size = 10;
-    this.speedOffset = Math.random() * 0.02;
+    this.speedOffset = 0;
 
     this.color = "#FFFFFF";
   }
@@ -38,6 +38,7 @@ class Particle {
   update() {
     this.follow();
 
+    this.acc.multiplyScalar(1 + Math.random() * 0.1); // add minute random force
     this.vel.addSelf(this.acc.clone().multiplyScalar(1 + this.speedOffset + this.size * 0.25));
     this.vel.multiplyScalar(1 / (this.friction + 1));
     this.pos.addSelf(this.vel);
@@ -64,7 +65,7 @@ class Particle {
     const pos = this.pos;
 
     if (pos.x < 0 || pos.x > width)
-      pos.set(0, ((height - (this.main.volDiff * height * 0.1)) + this.rand(height * 0.05) - this.rand(height * 0.025)));
+      pos.set(0, ((height - (this.main.vol * height * 0.05)) + this.rand(height * 0.05) - this.rand(height * 0.025)));
 
     if (pos.y < 0 || pos.y > height - 16)
       pos.set(pos.x, Math.max(0, Math.min(height - 16, pos.y)));

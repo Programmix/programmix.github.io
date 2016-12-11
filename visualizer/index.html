@@ -1,12 +1,40 @@
 <head>
   <title>My Page!</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
   <script src="lib/two.min.js"></script>
   <script src="lib/noise.min.js"></script>
+  <script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
+  <script>
+    var CLIENT_ID = 'd8803e0dc07b54e95b3573b6bd0954f0'
+    SC.initialize({
+      client_id: CLIENT_ID
+    });
+  </script>
+  <script src="js/cache.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/controls.js"></script>
   <script src="js/particle.js"></script>
 </head>
 <body style="background-color: #222">
+  <div id="debug"></div>
+  <img id="toggle-controls" src="icons/arrow.png">
+  <div id="controls-container">
+    <div class="controls-song">
+      <p>SoundCloud URL (track/playlist)</p>
+      <p id="input-error" class="hidden">Please make sure your URL is correct.</p>
+      <form id="song-input" action>
+        <input id="song-url" type="text" placeholder="https://soundcloud.com/monstercat/feint-words"></input>
+        <input type="submit" value></input>
+      </form>
+    </div>
+    <div id="controls-display" class="hidden">
+      <img id="song-artwork">
+      <h3 id="song-title">Title</h3>
+      <span id="song-artist">Artist</span>
+      <span id="song-duration" class="hidden">0:00 / 0:00</span>
+    </div>
+  </div>
   <div id="container"></div>
-  <div id="debug" style="color: #FFFFFF"></div>
-  <audio id="audio" src="audio/2.mp3" autoplay></audio>
+  <audio id="audio" autoplay></audio>
 </body>
