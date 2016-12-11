@@ -4,11 +4,12 @@ class Particle {
   constructor(main) {
     this.main = main;
     this.canvas = main.canvas;
+    this.ctx = main.ctx;
     this.flowField = main.flowField;
 
-    this.pos = new Two.Vector(this.rand(width), height * 0.9);
-    this.acc = new Two.Vector(0, 0);
-    this.vel = new Two.Vector(0, 0);
+    this.pos = new Vector(this.rand(width), height * 0.9);
+    this.acc = new Vector(0, 0);
+    this.vel = new Vector(0, 0);
 
     this.friction = 0.5;
     this.size = 10;
@@ -32,16 +33,16 @@ class Particle {
   }
 
   accelerate(force) {
-    this.acc.addSelf(force);
+    this.acc.add(force);
   }
 
   update() {
     this.follow();
 
-    this.acc.multiplyScalar(1 + Math.random() * 0.1); // add minute random force
-    this.vel.addSelf(this.acc.clone().multiplyScalar(1 + this.speedOffset + this.size * 0.25));
-    this.vel.multiplyScalar(1 / (this.friction + 1));
-    this.pos.addSelf(this.vel);
+    this.acc.multiply(1 + Math.random() * 0.1); // add minute random force
+    this.vel.add(this.acc.clone().multiply(1 + this.speedOffset + this.size * 0.25));
+    this.vel.divide(this.friction + 1);
+    this.pos.add(this.vel);
     this.acc.set(0, 0);
   }
 
@@ -54,11 +55,11 @@ class Particle {
 
     const v = this.flowField[x + y * this.main.cols];
     if (!v) {
-      this.accelerate(new Two.Vector(0, this.rand(2) - 1));
+      this.accelerate(new Vector(0, this.rand(2) - 1));
       return;
     }
 
-    this.accelerate(v.clone().multiplyScalar(0.1));
+    this.accelerate(v.clone().multiply(0.1));
   }
 
   clamp() {
@@ -72,14 +73,16 @@ class Particle {
   }
 
   render() {
-    const canvas = this.canvas;
+    const ctx = this.ctx;
     let { x, y } = this.pos;
     x = Math.floor(x);
     y = Math.floor(y);
 
-    const circle = canvas.makeCircle(x, y, this.size);
-    circle.fill = this.color;
-    circle.noStroke();
+    ctx.beginPath();
+    ctx.arc(x, y, this.size, 0, TAU, false);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    ctx.closePath();
   }
 
 }
