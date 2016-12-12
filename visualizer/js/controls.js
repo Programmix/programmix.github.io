@@ -39,14 +39,13 @@ class Controls {
 
     title.innerHTML = track.title;
     artist.innerHTML = track.user.username;
-    artwork.src = track.artwork_url;
+    artwork.src = track.artwork_url || track.user.avatar_url;
 
     this.songDisplay.classList.remove('hidden');
     return true;
   }
 
   ended() {
-    console.log('ended');
     const success = this.play();
     if (success) return;
 
@@ -99,6 +98,7 @@ class Controls {
 
         this.fetchTrack = () => {
           const track = result.tracks[index++];
+          if (!track) return null;
           track.stream_url += '?client_id=' + CLIENT_ID;
 
           return track;
