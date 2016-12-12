@@ -5,6 +5,8 @@ var scale = 15;
 const FPS = 60;
 
 const PI = Math.PI;
+const HALF_PI = Math.PI * 0.5;
+const QUARTER_PI = HALF_PI * 0.5;
 const TAU = PI * 2;
 
 let container, debug, audio;

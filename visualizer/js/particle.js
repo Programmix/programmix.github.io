@@ -65,11 +65,27 @@ class Particle {
   clamp() {
     const pos = this.pos;
 
-    if (pos.x < 0 || pos.x > width)
-      pos.set(0, ((height - (this.main.vol * height * 0.05)) + this.rand(height * 0.05) - this.rand(height * 0.025)));
+    if (pos.x < 0 || pos.x > width) {
+      pos.set(0, this.calcSpawnY());
+      this.accelerate(this.calcSpawnAngle());
+    }
 
     if (pos.y < 0 || pos.y > height - 16)
       pos.set(pos.x, Math.max(0, Math.min(height - 16, pos.y)));
+  }
+
+  calcSpawnY() {
+    const y = (height - (this.main.vol * height * 0.05));
+    const random = this.rand(height * 0.05) - this.rand(height * 0.025);
+
+    return y + random;
+  }
+
+  calcSpawnAngle() {
+    const angle = ((Math.random() * HALF_PI) * HALF_PI);
+    const force = 5;
+
+    return new Vector(Math.cos(angle) * force, Math.sin(angle) * force);
   }
 
   render() {
