@@ -63,6 +63,11 @@ class Main {
       this.particles.push(particle);
     }
 
+    for (let p = 0; p < 200; p++) {
+      const particle = new Particle(this, true);
+      this.particles.push(particle);
+    }
+
     // audio
     this.vol = 0;
     this.volRange = 0;
@@ -133,8 +138,10 @@ class Main {
     const pfactor = (volDiff - volDiffRange) * 3 + 1;
 
     for (const particle of this.particles) {
-      particle.size = 2 + (vol * 0.75) + ((Math.abs(pfactor) * 2.5) ^ 2) * 1.5;
-      particle.speedOffset = (vol * 0.35) + (pfactor * 1.25) ^ 2;
+      if (!particle.bg) {
+        particle.size = 2 + (vol * 0.75) + ((Math.abs(pfactor) * 2.5) ^ 2) * 1.5;
+        particle.speedOffset = (vol * 0.35) + (pfactor * 1.25) ^ 2;
+      }
 
       particle.update();
       particle.render();
@@ -147,6 +154,7 @@ class Main {
     vol: ${vol.toFixed(2)}<br>
     rng: ${volRange.toFixed(2)}<br>
     dif: ${volDiff.toFixed(2)}<br>
+    drg: ${volDiffRange.toFixed(2)}<br>
     pfc: ${pfactor.toFixed(2)}
     `
   }

@@ -1,18 +1,20 @@
 
 class Particle {
 
-  constructor(main) {
+  constructor(main, bg) {
     this.main = main;
     this.canvas = main.canvas;
     this.ctx = main.ctx;
     this.flowField = main.flowField;
 
-    this.pos = new Vector(this.rand(width), height * 0.9);
+    this.bg = bg;
+
+    this.pos = new Vector(this.rand(width), !bg ? height * 0.9 : this.rand(height));
     this.acc = new Vector(0, 0);
     this.vel = new Vector(0, 0);
 
     this.friction = 0.5;
-    this.size = 10;
+    this.size = 2;
     this.speedOffset = 0;
 
     this.color = "#FFFFFF";
@@ -75,7 +77,9 @@ class Particle {
   }
 
   calcSpawnY() {
-    const y = (height - (this.main.vol * height * 0.05));
+    const y = !this.bg ?
+      (height - (this.main.vol * height * 0.05))
+      : this.rand(height);
     const random = this.rand(height * 0.05) - this.rand(height * 0.025);
 
     return y + random;
