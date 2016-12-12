@@ -13,7 +13,7 @@ class Particle {
     this.acc = new Vector(0, 0);
     this.vel = new Vector(0, 0);
 
-    this.friction = 0.5;
+    this.friction = 0.7;
     this.size = 2;
     this.speedOffset = 0;
 
