@@ -135,7 +135,9 @@ class Main {
       }
     }
 
-    const pfactor = (volDiff - volDiffRange) * 3 + 1;
+    const pfactor = this.controls.track ?
+      (volDiff - volDiffRange) * 3 + 1
+      : 0;
 
     for (const particle of this.particles) {
       if (!particle.bg) {

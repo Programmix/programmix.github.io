@@ -49,6 +49,7 @@ class Controls {
     const success = this.play();
     if (success) return;
 
+    delete this.track;
     this.setMinimized(false);
     this.songDisplay.classList.add('hidden');
   }
