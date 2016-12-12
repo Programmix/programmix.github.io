@@ -57,7 +57,7 @@ class Particle {
 
     const v = this.flowField[x + y * this.main.cols];
 
-    this.accelerate(v.clone().multiply(0.1));
+    this.accelerate(v.clone().multiply(0.05));
   }
 
   clamp() {
