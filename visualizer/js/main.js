@@ -1,6 +1,6 @@
 
 var width, height;
-var scale = 15;
+var scale = 25;
 
 const FPS = 60;
 
@@ -58,12 +58,12 @@ class Main {
 
     this.particles = [];
 
-    for (let p = 0; p < 200; p++) {
+    for (let p = 0; p < 250; p++) {
       const particle = new Particle(this);
       this.particles.push(particle);
     }
 
-    for (let p = 0; p < 200; p++) {
+    for (let p = 0; p < 250; p++) {
       const particle = new Particle(this, true);
       this.particles.push(particle);
     }

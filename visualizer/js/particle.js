@@ -9,7 +9,7 @@ class Particle {
 
     this.bg = bg;
 
-    this.pos = new Vector(this.rand(width), !bg ? height * 0.9 : this.rand(height));
+    this.pos = new Vector(this.rand(width), !bg ? height * 0.75 : this.rand(height));
     this.acc = new Vector(0, 0);
     this.vel = new Vector(0, 0);
 
@@ -41,7 +41,7 @@ class Particle {
   update() {
     this.follow();
 
-    this.acc.multiply(1 + Math.random() * 0.1); // add minute random force
+    this.acc.multiply(1 + Math.random() * 0.2); // add minute random force
     this.vel.add(this.acc.clone().multiply(1 + this.speedOffset + this.size * 0.25));
     this.vel.divide(this.friction + 1);
     this.pos.add(this.vel);
@@ -52,14 +52,10 @@ class Particle {
     this.clamp();
 
     const { x: px, y: py } = this.pos;
-    const x = Math.floor(px / scale);
-    const y = Math.floor(py / scale);
+    const x = Math.max(0, Math.min(Math.floor(px / scale), this.main.cols - 1));
+    const y = Math.max(0, Math.min(Math.floor(py / scale), this.main.rows - 1));
 
     const v = this.flowField[x + y * this.main.cols];
-    if (!v) {
-      this.accelerate(new Vector(0, this.rand(2) - 1));
-      return;
-    }
 
     this.accelerate(v.clone().multiply(0.1));
   }
@@ -78,7 +74,7 @@ class Particle {
 
   calcSpawnY() {
     const y = !this.bg ?
-      (height - (this.main.vol * height * 0.05))
+      (height * 0.75 - (this.main.volDiff * height * 0.1))
       : this.rand(height);
     const random = this.rand(height * 0.05) - this.rand(height * 0.025);
 
