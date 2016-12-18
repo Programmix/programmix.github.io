@@ -78,7 +78,7 @@ class Particle {
       : this.rand(height);
     const random = this.rand(height * 0.05) - this.rand(height * 0.025);
 
-    return Math.max(y, height * 0.9) + random;
+    return Math.min(y, height * 0.9) + random;
   }
 
   calcSpawnAngle() {
