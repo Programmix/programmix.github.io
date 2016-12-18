@@ -73,12 +73,14 @@ class Particle {
   }
 
   calcSpawnY() {
-    const y = !this.bg ?
+    let y = !this.bg ?
       (height * 0.75 - (this.main.volDiff * height * 0.1))
       : this.rand(height);
     const random = this.rand(height * 0.05) - this.rand(height * 0.025);
 
-    return Math.min(y, height * 0.8) + random;
+    if (!this.bg) y = Math.min(y, height * 0.8)
+
+    return y + random;
   }
 
   calcSpawnAngle() {
