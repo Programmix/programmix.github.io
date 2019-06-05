@@ -1,0 +1,52 @@
+span.amark {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 50%, #fee603 50%);
+    background-position: 0;
+    background-size: 200%;
+    transition: all 2.0s;
+}
+
+span.amark.active {
+    background-position: -100%;
+}
+
+.text {
+    position: absolute;
+}
+
+.comment {
+    position: absolute;
+    width: 15em;
+    padding: 1em;
+    border: 1px #cccccc solid;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+.comment h4, .comment h6 {
+    margin: 0;
+}
+
+.comment h6 {
+    color: #555555;
+    margin-bottom: 1em;
+}
+
+.comment p {
+    font-size: 14px;
+}
+
+.comment button {
+    border: #dddddd 1px solid;
+    border-radius: 4px;
+    color: #8fb7f7;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0.4em;
+
+    transition: background-color 400ms;
+}
+
+.comment button:hover {
+    background-color: #eff5ff;
+    cursor: pointer;
+}
